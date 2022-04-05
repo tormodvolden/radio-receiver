@@ -79,9 +79,9 @@ const struct usb_interface_descriptor g_hid_iface_dsc = {
     .bInterfaceNumber = USB_HID_INTERFACE_IDX,
     .bAlternateSetting = 0,
     .bNumEndpoints = USB_HID_EP_COUNT,
-    .bInterfaceClass = USB_CLASS_HID,
-    .bInterfaceSubClass = USB_HID_SUBCLASS_NO,
-    .bInterfaceProtocol = USB_HID_INTERFACE_PROTOCOL_NONE,
+    .bInterfaceClass = 0, // USB_CLASS_HID,
+    .bInterfaceSubClass = 0, // USB_HID_SUBCLASS_NO,
+    .bInterfaceProtocol = 0, // USB_HID_INTERFACE_PROTOCOL_NONE,
     .iInterface = USB_HID_STRING_IDX,
 
     .endpoint = m_hid_endpoints,

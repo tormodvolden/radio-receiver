@@ -186,6 +186,17 @@ static const struct usb_endpoint_descriptor m_uac_stream_endpoints[USB_AUDIO_EP_
 
         .extra = NULL, // m_uac_cs_ep_dscs,
         .extralen = 0 //sizeof(m_uac_cs_ep_dscs)
+    },
+    {
+        .bLength = USB_DT_ENDPOINT_SIZE,
+        .bDescriptorType = USB_DT_ENDPOINT,
+        .bEndpointAddress = USB_AUDIO_EP_OUT_ADDRESS,
+        .bmAttributes = USB_ENDPOINT_ATTR_ISOCHRONOUS,
+        .wMaxPacketSize = USB_AUDIO_EP_LENGTH,
+        .bInterval = USB_AUDIO_EP_POLL_INTERVAL,
+
+        .extra = NULL,
+        .extralen = 0
     }
 };
 
@@ -381,14 +392,30 @@ static enum usbd_request_return_codes fwapp_uac_control_endpoint_request_cb(
     return USBD_REQ_NOTSUPP;
 }
 
+static char in_packet[64] = "ABCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaXYZ";
+static char echo[64];
+static int written = 0;
+
+static void fwapp_out_stream_cb(usbd_device *dev, uint8_t ep)
+{
+    (void)ep;
+
+    const struct fwapp_uac_buffer *buf = &m_sample_buffers[m_sample_buf_index];
+
+    usbd_ep_read_packet(dev, USB_AUDIO_EP_OUT_ADDRESS, echo, 64);
+    written = 1;
+}
+
 static void fwapp_uac_stream_cb(usbd_device *dev, uint8_t ep)
 {
     (void)ep;
 
     const struct fwapp_uac_buffer *buf = &m_sample_buffers[m_sample_buf_index];
 
-    usbd_ep_write_packet(dev, USB_AUDIO_EP_IN_ADDRESS, buf->samples,
-                         sizeof(buf->samples));
+    if (written)
+	    usbd_ep_write_packet(dev, USB_AUDIO_EP_IN_ADDRESS, echo, 64);
+    else
+	    usbd_ep_write_packet(dev, USB_AUDIO_EP_IN_ADDRESS, in_packet, 64);
 }
 
 void fwapp_uac_setup(usbd_device *dev)
@@ -403,6 +430,13 @@ void fwapp_uac_setup(usbd_device *dev)
         USB_ENDPOINT_ATTR_ISOCHRONOUS,
         USB_AUDIO_EP_LENGTH,
         fwapp_uac_stream_cb);
+
+    usbd_ep_setup(
+        dev,
+        USB_AUDIO_EP_OUT_ADDRESS,
+        USB_ENDPOINT_ATTR_ISOCHRONOUS,
+        USB_AUDIO_EP_LENGTH,
+        fwapp_out_stream_cb);
 
     usbd_register_control_callback(
         dev,

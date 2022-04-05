@@ -78,8 +78,9 @@
 // USB ADC BCD version.
 #define USB_BCD_ADC                     0x0100 // 1.0
 // USB audio endpoint addresses.
-#define USB_AUDIO_EP_COUNT              1
+#define USB_AUDIO_EP_COUNT              2
 #define USB_AUDIO_EP_IN_ADDRESS         0x82
+#define USB_AUDIO_EP_OUT_ADDRESS        0x03
 // USB audio endpoint buffer size.
 #define USB_AUDIO_EP_LENGTH             64 // For 16 kHz sample rate.
 // USB audio endpoint polling interval.

@@ -38,7 +38,7 @@ static const struct usb_interface m_ifaces[USB_INTERFACES_NUMBER] = {
     },
     {
         .num_altsetting = 1,
-        .iface_assoc = &g_uac_iface_assoc_dsc,
+        // .iface_assoc = &g_uac_iface_assoc_dsc,
         .altsetting = &g_uac_iface_control_dsc
     },
     {

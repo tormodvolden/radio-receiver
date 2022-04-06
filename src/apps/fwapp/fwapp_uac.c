@@ -158,8 +158,8 @@ const struct usb_interface_descriptor g_uac_iface_control_dsc = {
     .bInterfaceProtocol = 0, // USB_AUDIO_PROTOCOL_NONE,
     .iInterface = USB_UAC_CONTROL_STRING_IDX,
 
-    .extra = &m_uac_control_function,
-    .extralen = sizeof(m_uac_control_function)
+    .extra = NULL, // &m_uac_control_function,
+    .extralen = 0 //sizeof(m_uac_control_function)
 };
 
 // Streaming interface configuration.
@@ -184,8 +184,8 @@ static const struct usb_endpoint_descriptor m_uac_stream_endpoints[USB_AUDIO_EP_
         .wMaxPacketSize = USB_AUDIO_EP_LENGTH,
         .bInterval = USB_AUDIO_EP_POLL_INTERVAL,
 
-        .extra = m_uac_cs_ep_dscs,
-        .extralen = sizeof(m_uac_cs_ep_dscs)
+        .extra = NULL, // m_uac_cs_ep_dscs,
+        .extralen = 0 //sizeof(m_uac_cs_ep_dscs)
     }
 };
 
@@ -249,8 +249,8 @@ const struct usb_interface_descriptor g_uac_iface_stream_dscs[] = {
         .iInterface = USB_UAC_STREAM_STRING_IDX,
 
         .endpoint = m_uac_stream_endpoints,
-        .extra = &m_uac_stream_function,
-        .extralen = sizeof(m_uac_stream_function)
+        .extra = NULL, // &m_uac_stream_function,
+        .extralen = 0 // sizeof(m_uac_stream_function)
     }
 };
 

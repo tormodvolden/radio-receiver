@@ -16,9 +16,9 @@
 // USB device protocol.
 #define USB_PROTOCOL_IAD                0x01
 // USB device vendor.
-#define USB_VENDOR_ID                   0xFFFF
+#define USB_VENDOR_ID                   0x0483
 // USB device product.
-#define USB_PRODUCT_ID                  0xFFFF
+#define USB_PRODUCT_ID                  0x5731
 // USB maximum ep0 size.
 #define USB_MAX_EP0_SIZE                64
 // USB maximum configurations number.

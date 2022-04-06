@@ -62,9 +62,9 @@ static const struct usb_config_descriptor m_config_dsc = {
 };
 
 static const char *m_strings[USB_STRINGS_NUMBER] = {
-    "Denis Shienkov", // Manufacturer string.
-    "SI4730 AM/FM Radio Receiver", // Product string.
-    "12345678", // Serial number string.
+    "libusb.info", // Manufacturer string.
+    "Isochronous echo test", // Product string.
+    "20220406", // Serial number string.
     "SI4730 AM/FM Radio Receiver Configuration", // Configuration string.
     "SI4730 AM/FM Radio Receiver HID Control", // Control string.
     "SI4730 AM/FM Radio Receiver Audio Assoc", // Audio association string.
